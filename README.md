@@ -13,7 +13,7 @@ npm init
 
 We are going to use `Express`, so we install the package
 ```shell
-npm install express
+npm install exgpress
 ```
 
 We use nodemon for automatically restart the node application when file changes in the directory are detected. (For development)
