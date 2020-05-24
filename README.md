@@ -20,3 +20,8 @@ We use nodemon for automatically restart the node application when file changes 
 ```shell
 npm install --save-dev nodemon
 ```
+
+For Mongoose
+```shell
+npm install mongoose
+```

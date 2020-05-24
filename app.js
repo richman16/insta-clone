@@ -1,37 +1,21 @@
 const express = require('express')
 const app = express()
-const PORT = 8080
+const mongoose = require('mongoose')
+const PORT = 5000
+const {MONGOURI} = require('./keys.js')
 
-const requestIp = require('request-ip')
 
-
-var views=0
-
-const customMiddleware = (req, res, next) => {
-  const clientIp = requestIp.getClientIp(req)
-  console.log("Middleware executed!!")
-  console.log(`You are connect from: ${clientIp}`)
-  views++
-  console.log(`Contador: ${views}`)
-  next()
-}
-
-app.use(customMiddleware)
-
-app.get('/', (req, res) => {
-  console.log("Home of hello world")
-  res.send(
-    `<h1>hello world - made with nodejs by PolarDEV with <3</h1>
-    <br>
-    <p>Hola mi buen Yisus</p>
-    <p>Contador: ${views}</p>`
-  )
+// Deprecation Warning - Use new parser for URL String and
+// Server Discover and Monitoring engine
+mongoose.connect(MONGOURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology:true
 })
-
-// app.get('/about', customMiddleware, (req, res) => {
-app.get('/about', (req, res) => {
-  console.log("You are in about")
-  res.send("About page")
+mongoose.connection.on('connected', () => {
+  console.log("Connected to MongoDB")
+})
+mongoose.connection.on('error', (err) => {
+  console.log("Error connecting", err)
 })
 
 app.listen(PORT, () => {
